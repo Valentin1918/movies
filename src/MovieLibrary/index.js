@@ -1,5 +1,21 @@
-import reducer from './store/reducer'
-import MovieLibrary from './components/MovieLibrary'
+import React from 'react';
+import { Provider } from 'react-redux';
+import configStore from './store';
+import App from './containers/index';
+import reducers from './store/reducers';
+import createMids from './store/middlewares';
 
-export {reducer}
-export default MovieLibrary
+let Container = null;
+
+const createApp = () => {
+  if (Container) return Container;
+  const store = configStore(reducers, createMids());
+  Container = () => (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+  return Container;
+};
+
+export default createApp;

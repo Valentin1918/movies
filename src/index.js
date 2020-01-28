@@ -1,9 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
-import registerServiceWorker from './registerServiceWorker'
+import React from 'react';
+import { render } from 'react-dom';
+import Modal from 'react-modal';
+import './MovieLibrary/styles/index.css';
+import createApp from './MovieLibrary';
+import registerServiceWorker from './registerServiceWorker';
 
+const root = document.getElementById('root');
+const App = createApp();
 
-ReactDOM.render(<App />, document.getElementById('root'))
-registerServiceWorker()
+Modal.setAppElement(root);
+render(<App />, root);
+registerServiceWorker();

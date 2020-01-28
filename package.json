@@ -2,15 +2,6 @@
   "name": "movies",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "classnames": "^2.2.6",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-redux": "^7.1.0",
-    "react-scripts": "3.3.0",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -28,5 +19,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "react-modal": "^3.11.1",
+    "react-redux": "^7.1.0",
+    "react-scripts": "3.3.0",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0"
+  },
+  "devDependencies": {
+    "redux-logger": "^3.0.6"
   }
 }

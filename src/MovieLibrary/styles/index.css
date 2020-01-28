@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.movie-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(34,34,34,.5);
+}
+
+.movie-modal {
+  position: absolute;
+  right: auto;
+  bottom: auto;
+  background-color: white;
+  outline-style: none;
+  display: flex;
+  flex-direction: row;
+}
+
+.movie-modal > .media {
+  display: flex;
+  width: inherit;
+}
+.movie-modal > .media > img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.movie-modal  > .description {
+  width: 50%;
+  padding: 0 12px;
+}
+
+.movie-modal > .close-modal-btn {
+  position: absolute;
+  border: none;
+  padding: 5px 6px;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 1301px) {
+  .movie-modal {
+    top: 21%;
+    left: 26%;
+    height: 58%;
+    width: 48%;
+  }
+}
+
+@media screen and (min-width: 1081px) and (max-width: 1300px) {
+  .movie-modal {
+    top: 16.5%;
+    left: 22%;
+    height: 67%;
+    width: 56%;
+  }
+}
+
+@media screen and (min-width: 861px) and (max-width: 1080px) {
+  .movie-modal {
+    top: 11.5%;
+    left: 18%;
+    height: 77%;
+    width: 64%;
+  }
+}
+
+@media screen and (min-width: 641px) and (max-width: 860px) {
+  .movie-modal {
+    top: 7%;
+    left: 14%;
+    height: 86%;
+    width: 72%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .movie-modal {
+    top: 2%;
+    left: 10%;
+    height: 96%;
+    width: 80%;
+  }
+}

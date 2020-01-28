@@ -1,0 +1,50 @@
+.movies-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 24px 32px;
+}
+
+.movies-list > .items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.movies-list > .sorter {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.sorter > select {
+  margin-left: 8px;
+}
+
+.movie-list-item {
+  display: block;
+  cursor: pointer;
+  width: 196px;
+  height: 126px;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #7d7d7d;
+  margin: 12px 6px 0 0;
+  padding: 5px;
+}
+
+.movie-list-item:hover {
+  background-color: #ffd090;
+}
+
+.movie-list-item.selected {
+  background-color: #ff9000;
+}
+
+.movie-list-item > .backdrop {
+  height: 86px;
+}
+
+.movie-list-item > span {
+  font-size: medium;
+}
