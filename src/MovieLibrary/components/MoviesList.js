@@ -12,15 +12,13 @@ export default class MoviesList extends PureComponent {
     selectMovie: func.isRequired,
   };
 
-  handleSortingChange = sortingType => console.log(sortingType);
-
   render() {
     const { movies, selectedMovie, selectMovie } = this.props;
     return (
       <div className="movies-list">
         <div className="sorter">
           <span>Sort by:</span>
-          <SortingOptions onChange={this.handleSortingChange} />
+          <SortingOptions />
         </div>
         <div className="items">
           {movies.map(movie => (

@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { string, func } from 'prop-types';
+import { getSortBy } from '../store/selectors';
+import { sortMovies } from '../store/actions/sortMovies';
+import { sortOptions } from '../constants';
 
-export default class SortingOptions extends Component {
-  state = {
-    value: '',
+
+class SortingOptions extends Component {
+  static propTypes = {
+    sortBy: string.isRequired,
+    sortMovies: func.isRequired,
   };
 
-  handleChange = e => {
-    const selectedValue = e.target.value;
-    const {onChange} = this.props;
-    this.setState({value: selectedValue});
-    onChange(selectedValue);
-  };
+  handleChange = e => this.props.sortMovies(e.target.value);
 
   render() {
     return (
-      <select value={this.state.value} onChange={this.handleChange}>
-        <option value="" />
-        <option value="name_asc">A -> Z</option>
-        <option value="name_desc">Z -> A</option>
-        <option value="rating">Rating</option>
+      <select value={this.props.sortBy} onChange={this.handleChange}>
+        {sortOptions.map(({ value, uiText, disabled }, i) => (
+          <option value={value} disabled={disabled} key={`sortOption_${i}`}>{uiText}</option>
+        ))}
       </select>
     )
   }
 }
+
+export default connect(state => ({
+  sortBy: getSortBy(state),
+}), { sortMovies })(SortingOptions);

@@ -1,9 +1,11 @@
 import * as AT from '../actions/types';
+import { sortOptions } from '../../constants';
 
 const initialState = {
   moviesMap: {},
   moviesList: [],
   selected: '',
+  sortBy: sortOptions[0].value,
 };
 
 export default function moviesLib(state = initialState, action) {

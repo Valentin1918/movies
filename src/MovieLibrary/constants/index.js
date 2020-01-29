@@ -5,3 +5,9 @@ export const reqParams = {
   mode: 'no-cors',
   cache: 'default'
 };
+export const sortOptions = [
+  { value: '', uiText: '', disabled: true },
+  { value: 'titleAsc', uiText: 'A -> Z' },
+  { value: 'titleDesc', uiText: 'Z -> A' },
+  { value: 'voteAverage', uiText: 'Rating' },
+];
