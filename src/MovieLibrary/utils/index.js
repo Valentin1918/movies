@@ -1,20 +1,21 @@
-import { imageBaseUrl, cacheName, reqParams, sortOptions } from '../constants';
+import { cacheName, sortOptions } from '../constants';
+import { imageBaseUrl, moviesBaseUrl } from '../config';
 
-export const getTMDBPath = src => `${imageBaseUrl}${src.replace(/^\//, '')}`;
+export const joinURL = (base, path) => `${base.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+
+export const getImageUrl = joinURL.bind(null, imageBaseUrl);
+export const getMoviesUrl = joinURL.bind(null, moviesBaseUrl);
 
 export const cacheImages = items => {
   if (!Array.isArray(items) || !items.length || !window.caches) return;
   const urlSet = items.reduce((acc, { poster_path }) => {
-    if (poster_path) acc.add(getTMDBPath(poster_path));
+    if (poster_path) acc.add(getImageUrl(poster_path));
     return acc;
   }, new Set([]));
   const urlArr = [...urlSet];
-  const fetches = urlArr.map(url => fetch(new Request(url, reqParams)));
 
   caches.open(cacheName).then(cache => {
-    Promise.all(fetches).then(arr => {
-      arr.forEach((res, i) => cache.put(urlArr[i], res));
-    });
+    cache.addAll(urlArr).then(() => console.log('%c CACHED', 'color: green'));
   });
 };
 

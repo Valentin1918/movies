@@ -1,6 +1,6 @@
 import React from 'react';
 import { object, bool, func } from 'prop-types';
-import { getTMDBPath } from '../utils';
+import { getImageUrl } from '../utils';
 
 
 const MovieListItem = ({
@@ -13,7 +13,7 @@ const MovieListItem = ({
     >
       <div
         className="backdrop"
-        style={{ backgroundImage: `url(${getTMDBPath(backdrop_path)})` }}
+        style={{ backgroundImage: `url(${getImageUrl(backdrop_path)})` }}
       />
       <span>
           {`${title} (${vote_average})`}

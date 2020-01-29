@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { oneOfType, string, number, object, func } from 'prop-types';
 import Modal from 'react-modal';
 import crossSvg from '../images/cross.svg';
-import { getTMDBPath } from '../utils';
+import { getImageUrl } from '../utils';
 
 
 const ModalContent = ({
@@ -18,7 +18,7 @@ const ModalContent = ({
     </button>
     {!!poster_path && (
       <div className="media">
-        <img src={getTMDBPath(poster_path)} className="poster" alt="" />
+        <img src={getImageUrl(poster_path)} className="poster" alt="" />
       </div>
     )}
     <div className="description">
