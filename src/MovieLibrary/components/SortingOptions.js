@@ -16,11 +16,14 @@ class SortingOptions extends Component {
 
   render() {
     return (
-      <select value={this.props.sortBy} onChange={this.handleChange}>
-        {sortOptions.map(({ value, uiText, disabled }, i) => (
-          <option value={value} disabled={disabled} key={`sortOption_${i}`}>{uiText}</option>
-        ))}
-      </select>
+      <div className="sorter">
+        <span>Sort by:</span>
+        <select value={this.props.sortBy} onChange={this.handleChange}>
+          {sortOptions.map(({ value, uiText, disabled }, i) => (
+            <option value={value} disabled={disabled} key={`sortOption_${i}`}>{uiText}</option>
+          ))}
+        </select>
+      </div>
     )
   }
 }

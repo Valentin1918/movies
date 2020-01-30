@@ -9,3 +9,4 @@ export const getSelectedMovie = createSelector(getMoviesLib, _ => _.moviesMap[_.
 export const getSortBy = createSelector(getMoviesLib, _ => _.sortBy);
 export const getPage = createSelector(getMoviesLib, _ => _.page);
 export const getTotalPages = createSelector(getMoviesLib, _ => _.totalPages);
+export const getFetching = createSelector(getMoviesLib, _ => _.fetching);

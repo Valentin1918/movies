@@ -8,6 +8,7 @@ const initialState = {
   sortBy: sortOptions[0].value,
   page: 0,
   totalPages: 1,
+  fetching: false,
 };
 
 export default function moviesLib(state = initialState, action) {
@@ -15,6 +16,7 @@ export default function moviesLib(state = initialState, action) {
   const reducersMap = {
     [AT.UPDATE_MOVIES_OBJECT]: { ...state, ...payload },
     [AT.UPDATE_SELECTED]: { ...state, selected: payload },
+    [AT.UPDATE_FETCHING]: { ...state, fetching: payload },
   };
   return reducersMap[type] || state;
 }

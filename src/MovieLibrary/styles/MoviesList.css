@@ -1,18 +1,13 @@
 .movies-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   margin: 24px 32px;
 }
 
-.movies-list > .items {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-
-.movies-list > .sorter {
+.sorter {
   display: flex;
   margin-bottom: 12px;
 }

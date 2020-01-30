@@ -6,7 +6,7 @@ import { fetchMovies } from '../store/actions/fetchMovies';
 import { getMovies, getSelected, getSelectedMovie } from '../store/selectors';
 import MoviesList from '../components/MoviesList';
 import MovieModal from '../components/MovieModal';
-import { makeScrollListener } from '../utils';
+import SortingOptions from '../components/SortingOptions';
 import logo from '../images/logo.svg';
 import '../styles/MovieLibrary.css';
 
@@ -19,23 +19,6 @@ class Container extends Component {
     fetchMovies: func.isRequired,
   };
 
-  componentDidMount() {
-    this.props.fetchMovies();
-    document.addEventListener('scroll', this.scrollListener);
-  }
-
-  componentDidUpdate() {
-    if (window.innerHeight === document.scrollingElement.scrollHeight) {
-      this.props.fetchMovies();
-    }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('scroll', this.scrollListener);
-  }
-
-  scrollListener = makeScrollListener(this.props.fetchMovies);
-
   selectMovie = item => this.props.updateSelected(item);
 
   unselectMovie = () => this.props.updateSelected('');
@@ -43,26 +26,26 @@ class Container extends Component {
   render() {
     const { movies, selected, selectedMovie } = this.props;
     return (
-      <div className="MovieLibrary">
-        <header className="ML-header">
-          <img src={logo} className="ML-logo" alt="logo" />
-          <h1 className="ML-title">Movies</h1>
-        </header>
-        <div className="ML-intro">
-          {!!movies.length && (
-            <MoviesList
-              movies={movies}
-              selectMovie={this.selectMovie}
-              selected={selected}
+      <div className="MovieLibraryWrap">
+        <div className="MovieLibrary">
+          <header className="ML-header">
+            <img src={logo} className="ML-logo" alt="logo" />
+            <h1 className="ML-title">Movies</h1>
+            <SortingOptions />
+          </header>
+          <MoviesList
+            movies={movies}
+            selectMovie={this.selectMovie}
+            selected={selected}
+            fetchMovies={this.props.fetchMovies}
+          />
+          {!!selectedMovie && (
+            <MovieModal
+              movie={selectedMovie}
+              unselectMovie={this.unselectMovie}
             />
           )}
         </div>
-        {!!selectedMovie && (
-          <MovieModal
-            movie={selectedMovie}
-            unselectMovie={this.unselectMovie}
-          />
-        )}
       </div>
     );
   }

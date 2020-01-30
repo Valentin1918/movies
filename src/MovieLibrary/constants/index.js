@@ -5,4 +5,6 @@ export const sortOptions = [
   { value: 'titleDesc', uiText: 'Z -> A' },
   { value: 'voteAverage', uiText: 'Rating' },
 ];
+export const moviesHeaderHeight = 190;
+export const scrollableWindow = window.innerHeight - moviesHeaderHeight;
 export const smoothScrollBuffer = 150;

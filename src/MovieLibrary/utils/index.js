@@ -1,4 +1,4 @@
-import { cacheName, sortOptions, smoothScrollBuffer } from '../constants';
+import { cacheName, sortOptions, smoothScrollBuffer, scrollableWindow } from '../constants';
 import { imageBaseUrl, moviesBaseUrl } from '../config';
 
 export const call = (cb, ...args) => { if (typeof cb === 'function') cb(...args); };
@@ -7,6 +7,8 @@ export const joinURL = (base, path) => `${base.replace(/\/$/, '')}/${path.replac
 
 export const getImageUrl = joinURL.bind(null, imageBaseUrl);
 export const getMoviesUrl = joinURL.bind(null, moviesBaseUrl);
+
+export const uniqArr = arr => Array.from(new Set(arr));
 
 export const cacheImages = items => {
   if (!Array.isArray(items) || !items.length || !window.caches) return;
@@ -43,10 +45,12 @@ export const sortByMap = (sortBy, movies) => {
   return sort(movies).map(m => m.id);
 };
 
-export const makeScrollListener = cb => ({
-  target: { scrollingElement: { scrollTop, scrollHeight } }
-}) => {
-  if (scrollTop + window.innerHeight + smoothScrollBuffer >= scrollHeight) {
+export const fulfillList = (el, cb) => {
+  if (scrollableWindow >= el.scrollHeight) call(cb);
+};
+
+export const makeScrollListener = cb => ({ target: { scrollTop, scrollHeight } }) => {
+  if (scrollableWindow + scrollTop + smoothScrollBuffer >= scrollHeight) {
     call(cb);
   }
 };
