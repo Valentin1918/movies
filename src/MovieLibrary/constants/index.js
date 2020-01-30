@@ -5,3 +5,4 @@ export const sortOptions = [
   { value: 'titleDesc', uiText: 'Z -> A' },
   { value: 'voteAverage', uiText: 'Rating' },
 ];
+export const smoothScrollBuffer = 150;

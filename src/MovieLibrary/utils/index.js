@@ -1,5 +1,7 @@
-import { cacheName, sortOptions } from '../constants';
+import { cacheName, sortOptions, smoothScrollBuffer } from '../constants';
 import { imageBaseUrl, moviesBaseUrl } from '../config';
+
+export const call = (cb, ...args) => { if (typeof cb === 'function') cb(...args); };
 
 export const joinURL = (base, path) => `${base.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
 
@@ -39,4 +41,12 @@ export const sortByMap = (sortBy, movies) => {
   const sort = sortMap[sortBy];
   if (!sort || !Array.isArray(movies) || !movies.length) return;
   return sort(movies).map(m => m.id);
+};
+
+export const makeScrollListener = cb => ({
+  target: { scrollingElement: { scrollTop, scrollHeight } }
+}) => {
+  if (scrollTop + window.innerHeight + smoothScrollBuffer >= scrollHeight) {
+    call(cb);
+  }
 };

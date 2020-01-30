@@ -11,10 +11,12 @@ const MovieListItem = ({
       className={`movie-list-item${isSelected ? ' selected' : ''}`}
       onClick={onSelect}
     >
-      <div
-        className="backdrop"
-        style={{ backgroundImage: `url(${getImageUrl(backdrop_path)})` }}
-      />
+      {backdrop_path && (
+        <div
+          className="backdrop"
+          style={{ backgroundImage: `url(${getImageUrl(backdrop_path)})` }}
+        />
+      )}
       <span>
           {`${title} (${vote_average})`}
         </span>

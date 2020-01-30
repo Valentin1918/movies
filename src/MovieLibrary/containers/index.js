@@ -6,6 +6,7 @@ import { fetchMovies } from '../store/actions/fetchMovies';
 import { getMovies, getSelected, getSelectedMovie } from '../store/selectors';
 import MoviesList from '../components/MoviesList';
 import MovieModal from '../components/MovieModal';
+import { makeScrollListener } from '../utils';
 import logo from '../images/logo.svg';
 import '../styles/MovieLibrary.css';
 
@@ -20,7 +21,20 @@ class Container extends Component {
 
   componentDidMount() {
     this.props.fetchMovies();
+    document.addEventListener('scroll', this.scrollListener);
   }
+
+  componentDidUpdate() {
+    if (window.innerHeight === document.scrollingElement.scrollHeight) {
+      this.props.fetchMovies();
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.scrollListener);
+  }
+
+  scrollListener = makeScrollListener(this.props.fetchMovies);
 
   selectMovie = item => this.props.updateSelected(item);
 

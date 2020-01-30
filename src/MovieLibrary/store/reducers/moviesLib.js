@@ -6,6 +6,8 @@ const initialState = {
   moviesList: [],
   selected: '',
   sortBy: sortOptions[0].value,
+  page: 0,
+  totalPages: 1,
 };
 
 export default function moviesLib(state = initialState, action) {
