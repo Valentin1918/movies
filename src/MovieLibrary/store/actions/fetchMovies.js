@@ -2,6 +2,7 @@ import AC from './index';
 import { fetchMovies as _fetchMovies } from '../../api/end-points';
 import { getPage, getTotalPages, getMoviesList, getMoviesMap, getFetching } from '../selectors';
 import { moviesApiKey } from '../../config';
+import { sortOptions } from '../../constants';
 import { cacheImages, uniqArr } from '../../utils';
 
 
@@ -30,6 +31,7 @@ export const fetchMovies = () => (dispatch, getState) => {
         moviesList: uniqArr(moviesObj.moviesList),
         page,
         totalPages: total_pages,
+        sortBy: sortOptions[0].value,
         fetching: false
       }));
     }).catch(({ status, message }) => {
