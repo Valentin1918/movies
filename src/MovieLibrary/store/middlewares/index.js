@@ -1,15 +1,8 @@
 import thunk from 'redux-thunk';
+import { isProd } from '../../constants';
 
-const createMiddlewares = () => {
+export default function createMiddlewares() {
   const mids = [thunk];
-
-  if (process.env.NODE_ENV !== 'production') {
-    mids.push(
-      require('redux-logger').default
-    );
-  }
-
+  if (!isProd) mids.push(require('redux-logger').default);
   return mids;
 };
-
-export default createMiddlewares;

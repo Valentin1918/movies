@@ -3,7 +3,7 @@ import { fetchMovies as _fetchMovies } from '../../api/end-points';
 import { getPage, getTotalPages, getMoviesList, getMoviesMap, getFetching } from '../selectors';
 import { moviesApiKey } from '../../config';
 import { sortOptions } from '../../constants';
-import { cacheImages, uniqArr } from '../../utils';
+import { optimalCaching, uniqArr } from '../../utils';
 
 
 export const fetchMovies = () => (dispatch, getState) => {
@@ -19,7 +19,7 @@ export const fetchMovies = () => (dispatch, getState) => {
   _fetchMovies(moviesApiKey, page + 1).then(res => {
     res.json().then(({ results, page, total_pages }) => {
       if (!Array.isArray(results)) return;
-      cacheImages(results);
+      optimalCaching(results);
       const moviesObj = results.reduce((acc, movie) => {
         acc.moviesMap[movie.id] = movie;
         acc.moviesList.push(movie.id);

@@ -1,4 +1,7 @@
-import { cacheName, sortOptions, smoothScrollBuffer, scrollableWindow } from '../constants';
+import {
+  cacheName, sortOptions, smoothScrollBuffer, scrollableWindow, swMessageType,
+  cachingTypes, reqParams, isProd,
+} from '../constants';
 import { imageBaseUrl, moviesBaseUrl } from '../config';
 
 export const call = (cb, ...args) => { if (typeof cb === 'function') cb(...args); };
@@ -10,17 +13,41 @@ export const getMoviesUrl = joinURL.bind(null, moviesBaseUrl);
 
 export const uniqArr = arr => Array.from(new Set(arr));
 
-export const cacheImages = items => {
-  if (!Array.isArray(items) || !items.length || !window.caches) return;
+const makeUrlArr = items => {
   const urlSet = items.reduce((acc, { poster_path }) => {
     if (poster_path) acc.add(getImageUrl(poster_path));
     return acc;
   }, new Set([]));
-  const urlArr = [...urlSet];
+  return [...urlSet];
+};
 
-  caches.open(cacheName).then(cache => {
-    cache.addAll(urlArr).then(() => console.log('%c CACHED', 'color: green'));
-  });
+const cacheByType = type => (cache, urlArr) => ({
+  [cachingTypes[0]]: () => {
+    cache.addAll(urlArr).then(() => {
+      if (!isProd) console.log(`%c CACHED ${cachingTypes[0]}ly`, 'color: green')
+    });
+  },
+  [cachingTypes[1]]: () => {
+    const fetches = urlArr.map(url => fetch(new Request(url, reqParams)));
+    Promise.all(fetches).then(arr => {
+      arr.forEach((res, i) => cache.put(urlArr[i], res));
+      if (!isProd) console.log(`%c CACHED ${cachingTypes[1]}ly`, 'color: green')
+    });
+  },
+})[type]();
+
+const cacheImages = (cachingType, items) => {
+  if (!Array.isArray(items) || !items.length || !window.caches) return;
+  const urlArr = makeUrlArr(items);
+  window.caches.open(cacheName).then(cache => cacheByType(cachingType)(cache, urlArr));
+};
+
+export const optimalCaching = items => {
+  if (navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({ type: swMessageType, items, isProd });
+  } else {
+    cacheImages(cachingTypes[0], items);
+  }
 };
 
 const pivotAsc = (aT, bT) => aT > bT ? 1 : -1;
