@@ -3,6 +3,7 @@ import { oneOfType, string, number, object, func } from 'prop-types';
 import Modal from 'react-modal';
 import crossSvg from '../images/cross.svg';
 import { getImageUrl } from '../utils';
+import noImage_500_750 from '../images/no-image_500x750.png';
 
 
 const ModalContent = ({
@@ -16,11 +17,9 @@ const ModalContent = ({
     >
       <img src={crossSvg} alt="" />
     </button>
-    {!!poster_path && (
-      <div className="media">
-        <img src={getImageUrl(poster_path)} className="poster" alt="" />
-      </div>
-    )}
+    <div className="media">
+      <img src={poster_path ? getImageUrl(poster_path) : noImage_500_750} className="poster" alt="" />
+    </div>
     <div className="description">
       {!!(title || original_title) && (
         <h2>{`${title} ${original_title ? `(${original_title})` : ''}`}</h2>
