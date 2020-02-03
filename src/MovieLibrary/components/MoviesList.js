@@ -31,7 +31,7 @@ export default class MoviesList extends PureComponent {
   scrollList = createRef();
 
   render() {
-    const { movies, selectedMovie, selectMovie } = this.props;
+    const { movies, selected, selectMovie } = this.props;
     return (
       <div className="ML-intro" ref={this.scrollList}>
         <div className="movies-list">
@@ -39,7 +39,7 @@ export default class MoviesList extends PureComponent {
             <MovieListItem
               key={movie.id}
               movie={movie}
-              isSelected={selectedMovie === movie.id}
+              isSelected={selected === movie.id}
               onSelect={() => selectMovie(movie.id)}
             />
           ))}
